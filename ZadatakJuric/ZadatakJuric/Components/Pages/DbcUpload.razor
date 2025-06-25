@@ -1,0 +1,245 @@
+@page "/dbc-upload"
+@using ZadatakJuric.Application.DBCParser.Dto
+@using Microsoft.AspNetCore.Components.Forms
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
+
+<PageTitle>DBC File Upload</PageTitle>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>DBC File Upload</h2>
+            <p class="text-muted">Upload a DBC file to parse networks, messages, and signals</p>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Select DBC File</h5>
+                    
+                    <EditForm Model="this" OnValidSubmit="HandleFileUpload">
+                        <div class="mb-3">
+                            <label for="fileInput" class="form-label">Choose DBC file:</label>
+                            <InputFile OnChange="OnFileSelected" class="form-control" accept=".dbc" id="fileInput" />
+                            <div class="form-text">Only .dbc files are supported</div>
+                        </div>
+                        
+                        @if (selectedFile != null)
+                        {
+                            <div class="mb-3">
+                                <strong>Selected file:</strong> @selectedFile.Name (@FormatFileSize(selectedFile.Size))
+                            </div>
+                        }
+
+                        <button type="submit" class="btn btn-primary" disabled="@(selectedFile == null || isProcessing)">
+                            @if (isProcessing)
+                            {
+                                <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                <text>Processing...</text>
+                            }
+                            else
+                            {
+                                <text>Upload and Parse</text>
+                            }
+                        </button>
+                    </EditForm>
+                </div>
+            </div>
+
+            @if (!string.IsNullOrEmpty(statusMessage))
+            {
+                <div class="alert @(hasError ? "alert-danger" : (wasAlreadyParsed ? "alert-warning" : "alert-success")) mt-3">
+                    @if (wasAlreadyParsed && !hasError)
+                    {
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                    }
+                    @statusMessage
+                </div>
+            }
+        </div>
+    </div>
+
+    @if (parsedNetwork != null)
+    {
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Parsed Network Information</h5>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>File Name:</strong> @parsedNetwork.FileName</p>
+                                <p><strong>Version:</strong> @parsedNetwork.Version</p>
+                                <p><strong>Description:</strong> @parsedNetwork.Description</p>
+                                <p><strong>Created:</strong> @parsedNetwork.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Total Networks:</strong> @parsedNetwork.TotalNetworks</p>
+                                <p><strong>Total Messages:</strong> @parsedNetwork.TotalMessages</p>
+                                <p><strong>Total Signals:</strong> @parsedNetwork.TotalSignals</p>
+                                <p><strong>Total Attributes:</strong> @parsedNetwork.TotalAttributes</p>
+                            </div>
+                        </div>
+
+                        @if (parsedNetwork.Networks.Any() && parsedNetwork.Networks.SelectMany(n => n.Messages).Any())
+                        {
+                            <h6 class="mt-4">Messages Overview</h6>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Size (bytes)</th>
+                                            <th>Signals</th>
+                                            <th>Sender</th>
+                                            <th>Network</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var network in parsedNetwork.Networks)
+                                        {
+                                            @foreach (var message in network.Messages.Take(10))
+                                            {
+                                                <tr>
+                                                    <td>0x@(message.Id.ToString("X"))</td>
+                                                    <td>@message.Name</td>
+                                                    <td>@message.Size</td>
+                                                    <td>@message.Signals.Count</td>
+                                                    <td>@message.Sender</td>
+                                                    <td>@network.Name</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                                @if (parsedNetwork.TotalMessages > 10)
+                                {
+                                    <p class="text-muted">Showing first 10 of @parsedNetwork.TotalMessages messages</p>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private IBrowserFile? selectedFile;
+    private bool isProcessing = false;
+    private string statusMessage = string.Empty;
+    private bool hasError = false;
+    private DBCDto? parsedNetwork;
+    private bool wasAlreadyParsed = false;
+
+    private void OnFileSelected(InputFileChangeEventArgs e)
+    {
+        selectedFile = e.File;
+        statusMessage = string.Empty;
+        hasError = false;
+        parsedNetwork = null;
+        wasAlreadyParsed = false;
+    }
+
+    private async Task HandleFileUpload()
+    {
+        if (selectedFile == null) return;
+
+        isProcessing = true;
+        statusMessage = "Reading file...";
+        hasError = false;
+
+        try
+        {
+            // Validate file extension
+            if (!selectedFile.Name.EndsWith(".dbc", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new InvalidOperationException("Please select a valid .dbc file");
+            }
+
+            // Validate file size (max 50MB)
+            if (selectedFile.Size > 50 * 1024 * 1024)
+            {
+                throw new InvalidOperationException("File size must be less than 50MB");
+            }
+
+            statusMessage = "Parsing DBC file...";
+            StateHasChanged();
+
+            // Create multipart form data content
+            using var content = new MultipartFormDataContent();
+            using var stream = selectedFile.OpenReadStream(maxAllowedSize: 50 * 1024 * 1024);
+            using var streamContent = new StreamContent(stream);
+            streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+            content.Add(streamContent, "file", selectedFile.Name);
+
+            // Call the API endpoint
+            var response = await Http.PostAsync("api/dbcparsing/parse", content);
+            
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<ParseResult>();
+                parsedNetwork = result?.Data;
+                wasAlreadyParsed = result?.WasAlreadyParsed ?? false;
+                statusMessage = result?.Message ?? "Successfully parsed DBC file!";
+                hasError = false;
+            }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                throw new HttpRequestException($"API call failed: {response.StatusCode} - {errorContent}");
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            statusMessage = $"API Error: {ex.Message}";
+            hasError = true;
+            parsedNetwork = null;
+        }
+        catch (ArgumentException ex)
+        {
+            statusMessage = $"Invalid file format: {ex.Message}";
+            hasError = true;
+            parsedNetwork = null;
+        }
+        catch (InvalidOperationException ex)
+        {
+            statusMessage = $"Parsing error: {ex.Message}";
+            hasError = true;
+            parsedNetwork = null;
+        }
+        catch (Exception ex)
+        {
+            statusMessage = $"Error: {ex.Message}";
+            hasError = true;
+            parsedNetwork = null;
+        }
+        finally
+        {
+            isProcessing = false;
+        }
+    }
+
+    private string FormatFileSize(long bytes)
+    {
+        string[] suffixes = { "B", "KB", "MB", "GB" };
+        int counter = 0;
+        decimal number = bytes;
+        while (Math.Round(number / 1024) >= 1)
+        {
+            number /= 1024;
+            counter++;
+        }
+        return $"{number:n1} {suffixes[counter]}";
+    }
+
+    public class ParseResult
+    {
+        public DBCDto Data { get; set; } = new();
+        public bool WasAlreadyParsed { get; set; }
+        public string Message { get; set; } = string.Empty;
+    }
+} 

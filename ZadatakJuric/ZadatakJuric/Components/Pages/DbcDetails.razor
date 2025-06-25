@@ -1,0 +1,338 @@
+@page "/dbc-details/{id:int}"
+@using ZadatakJuric.Application.DBCParser.Dto
+@inject HttpClient Http
+@inject NavigationManager Navigation
+@rendermode InteractiveServer
+
+<PageTitle>@(dbcData?.FileName ?? "DBC Details")</PageTitle>
+
+<div class="container-fluid">
+    <!-- Header with navigation -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-outline-secondary me-3" @onclick="GoBack">
+                        <i class="bi bi-arrow-left"></i> Back to List
+                    </button>
+                    <div>
+                        <h2 class="mb-0">@(dbcData?.FileName ?? "Loading...")</h2>
+                        @if (dbcData != null)
+                        {
+                            <p class="text-muted mb-0">Version @dbcData.Version • @FormatFileSize(dbcData.FileSize) • @dbcData.CreatedAt.ToString("yyyy-MM-dd HH:mm")</p>
+                        }
+                    </div>
+                </div>
+                @if (dbcData != null)
+                {
+                    <div class="btn-group">
+                        <button class="btn btn-outline-primary" @onclick="LoadData">
+                            <i class="bi bi-arrow-clockwise"></i> Refresh
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="text-center p-5">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Loading DBC details...</p>
+        </div>
+    }
+    else if (dbcData == null)
+    {
+        <div class="text-center p-5">
+            <i class="bi bi-exclamation-circle text-warning" style="font-size: 3rem;"></i>
+            <h4 class="mt-3">DBC File Not Found</h4>
+            <p class="text-muted">The requested DBC file could not be found.</p>
+            <button class="btn btn-primary" @onclick="GoBack">
+                <i class="bi bi-arrow-left"></i> Go Back
+            </button>
+        </div>
+    }
+    else
+    {
+        <!-- Summary Cards -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card border-success">
+                    <div class="card-body text-center">
+                        <i class="bi bi-chat-dots text-success fs-1"></i>
+                        <h4 class="mt-2 mb-0">@dbcData.TotalMessages</h4>
+                        <small class="text-muted">Messages</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-warning">
+                    <div class="card-body text-center">
+                        <i class="bi bi-signal text-warning fs-1"></i>
+                        <h4 class="mt-2 mb-0">@dbcData.TotalSignals</h4>
+                        <small class="text-muted">Signals</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-info">
+                    <div class="card-body text-center">
+                        <i class="bi bi-tags text-info fs-1"></i>
+                        <h4 class="mt-2 mb-0">@dbcData.TotalAttributes</h4>
+                        <small class="text-muted">Attributes</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- File Information -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">File Information</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>File Name:</strong> @dbcData.FileName</p>
+                                <p><strong>Version:</strong> @dbcData.Version</p>
+                                <p><strong>File Size:</strong> @FormatFileSize(dbcData.FileSize)</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Created:</strong> @dbcData.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                                <p><strong>Networks:</strong> @(dbcData.Networks?.Count ?? 0)</p>
+                                @if (!string.IsNullOrEmpty(dbcData.Description))
+                                {
+                                    <p><strong>Description:</strong> @dbcData.Description</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Network Details -->
+        @if (dbcData.Networks != null && dbcData.Networks.Any())
+        {
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Network Details</h5>
+                        </div>
+                        <div class="card-body">
+                            @foreach (var network in dbcData.Networks)
+                            {
+                                <div class="mb-4">
+                                    <h6 class="border-bottom pb-2">@network.Name</h6>
+                                    @if (!string.IsNullOrEmpty(network.Description))
+                                    {
+                                        <p class="text-muted mb-3">@network.Description</p>
+                                    }
+                                    
+                                    <!-- Network Attributes -->
+                                    @if (network.Attributes != null && network.Attributes.Any())
+                                    {
+                                        <div class="mb-3">
+                                            <h6 class="text-primary">Network Attributes</h6>
+                                            <div class="table-responsive">
+                                                <table class="table table-sm">
+                                                    <thead class="table-light">
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Type</th>
+                                                            <th>Value</th>
+                                                            <th>Comment</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var attr in network.Attributes)
+                                                        {
+                                                            <tr>
+                                                                <td><strong>@attr.Name</strong></td>
+                                                                <td><span class="badge bg-info">@attr.ValueType</span></td>
+                                                                <td>@attr.Value</td>
+                                                                <td>@attr.Comment</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    }
+
+                                    <!-- Messages -->
+                                    @if (network.Messages != null && network.Messages.Any())
+                                    {
+                                        <div class="mb-3">
+                                            <h6 class="text-success">Messages (@network.Messages.Count)</h6>
+                                            <div class="table-responsive">
+                                                <table class="table table-sm table-hover">
+                                                    <thead class="table-light">
+                                                        <tr>
+                                                            <th>Message ID</th>
+                                                            <th>Name</th>
+                                                            <th>Size</th>
+                                                            <th>Sender</th>
+                                                            <th>Signals</th>
+                                                            <th>Comment</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var message in network.Messages.Take(20))
+                                                        {
+                                                            <tr>
+                                                                <td><code>0x@message.Id.ToString("X")</code></td>
+                                                                <td>
+                                                                    <strong>@message.Name</strong>
+                                                                    @if (message.Signals != null && message.Signals.Any())
+                                                                    {
+                                                                        <button class="btn btn-sm btn-outline-info ms-2" type="button" 
+                                                                                data-bs-toggle="collapse" 
+                                                                                data-bs-target="#signals-@message.Id" 
+                                                                                aria-expanded="false">
+                                                                            <i class="bi bi-eye"></i> View Signals
+                                                                        </button>
+                                                                    }
+                                                                </td>
+                                                                <td>@message.Size bytes</td>
+                                                                <td>@message.Sender</td>
+                                                                <td><span class="badge bg-secondary">@(message.Signals?.Count ?? 0)</span></td>
+                                                                <td>@message.Comment</td>
+                                                            </tr>
+                                                            @if (message.Signals != null && message.Signals.Any())
+                                                            {
+                                                                <tr>
+                                                                    <td colspan="6" class="p-0">
+                                                                        <div class="collapse" id="signals-@message.Id">
+                                                                            <div class="card card-body m-2">
+                                                                                <h6 class="text-warning">Signals for @message.Name</h6>
+                                                                                <div class="table-responsive">
+                                                                                    <table class="table table-sm">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th>Name</th>
+                                                                                                <th>Start Bit</th>
+                                                                                                <th>Length</th>
+                                                                                                <th>Factor/Offset</th>
+                                                                                                <th>Range</th>
+                                                                                                <th>Unit</th>
+                                                                                                <th>Comment</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            @foreach (var signal in message.Signals)
+                                                                                            {
+                                                                                                <tr>
+                                                                                                    <td><strong>@signal.Name</strong></td>
+                                                                                                    <td>@signal.StartBit</td>
+                                                                                                    <td>@signal.Length</td>
+                                                                                                    <td>@signal.Factor/@signal.Offset</td>
+                                                                                                    <td>[@signal.Minimum|@signal.Maximum]</td>
+                                                                                                    <td>@signal.Unit</td>
+                                                                                                    <td>@signal.Comment</td>
+                                                                                                </tr>
+                                                                                            }
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                                @if (network.Messages.Count > 20)
+                                                {
+                                                    <p class="text-muted text-center">Showing first 20 of @network.Messages.Count messages</p>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-muted">No messages found in this network.</p>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="text-center p-5">
+                <i class="bi bi-info-circle text-info" style="font-size: 3rem;"></i>
+                <h4 class="mt-3">No Network Data</h4>
+                <p class="text-muted">This DBC file doesn't contain detailed network information.</p>
+            </div>
+        }
+    }
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    
+    private DBCDto? dbcData;
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        isLoading = true;
+        
+        try
+        {
+            Console.WriteLine($"Loading DBC details for ID: {Id}");
+            Console.WriteLine($"Making API call to: {Http.BaseAddress}api/dbcparsing/details/{Id}");
+            
+            // Use the API endpoint to get DBC details
+            dbcData = await Http.GetFromJsonAsync<DBCDto>($"api/dbcparsing/details/{Id}");
+            
+            Console.WriteLine($"API Response received. DBC Data: {dbcData != null}");
+            if (dbcData != null)
+            {
+                Console.WriteLine($"File: {dbcData.FileName}, Networks: {dbcData.Networks?.Count ?? 0}");
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"HTTP Error loading DBC details: {ex.Message}");
+            dbcData = null;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading DBC details: {ex.Message}");
+            dbcData = null;
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void GoBack()
+    {
+        Navigation.NavigateTo("/dbc-list");
+    }
+
+    private string FormatFileSize(long bytes)
+    {
+        if (bytes >= 1024 * 1024)
+            return $"{bytes / (1024.0 * 1024.0):F1} MB";
+        else if (bytes >= 1024)
+            return $"{bytes / 1024.0:F1} KB";
+        else
+            return $"{bytes} B";
+    }
+} 

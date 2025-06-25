@@ -1,0 +1,50 @@
+﻿@page "/"
+
+<PageTitle>Home - DBC Parser</PageTitle>
+
+<div class="jumbotron bg-light p-5 rounded-lg m-3">
+    <div class="container">
+        <h1 class="display-4">DBC File Parser</h1>
+        <p class="lead">Upload and parse DBC (Database CAN) files to extract network information, messages, and signals used in automotive applications.</p>
+        <hr class="my-4">
+        <p>This application allows you to:</p>
+        <ul>
+            <li>Upload DBC files for parsing</li>
+            <li>View network structures with messages and signals</li>
+            <li>Search through parsed data</li>
+            <li>Extract automotive CAN bus information</li>
+        </ul>
+        <a class="btn btn-primary btn-lg" href="/dbc-upload" role="button">
+            <span class="oi oi-cloud-upload" aria-hidden="true"></span> Upload DBC File
+        </a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">What is DBC?</h5>
+                    <p class="card-text">DBC (Database CAN) files are standard files used in the automotive industry to describe CAN bus networks, including messages and signals.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Fast Processing</h5>
+                    <p class="card-text">Our parser is designed to handle large volumes of DBC files efficiently, supporting server-side processing of 1000+ files per minute.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Easy to Use</h5>
+                    <p class="card-text">Simple web interface for uploading files and viewing parsed network information with messages and signals.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

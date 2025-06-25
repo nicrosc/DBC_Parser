@@ -1,0 +1,17 @@
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Application\bin\Debug\net8.0\ZadatakJuric.Application.deps.json
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Application\bin\Debug\net8.0\ZadatakJuric.Application.dll
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Application\bin\Debug\net8.0\ZadatakJuric.Application.pdb
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Application\bin\Debug\net8.0\ZadatakJuric.Domain.dll
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Application\bin\Debug\net8.0\ZadatakJuric.Infrastructure.dll
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Application\bin\Debug\net8.0\ZadatakJuric.Domain.pdb
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Application\bin\Debug\net8.0\ZadatakJuric.Infrastructure.pdb
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Application\obj\Debug\net8.0\ZadatakJuric.Application.csproj.AssemblyReference.cache
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Application\obj\Debug\net8.0\ZadatakJuric.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Application\obj\Debug\net8.0\ZadatakJuric.Application.AssemblyInfoInputs.cache
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Application\obj\Debug\net8.0\ZadatakJuric.Application.AssemblyInfo.cs
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Application\obj\Debug\net8.0\ZadatakJuric.Application.csproj.CoreCompileInputs.cache
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Application\obj\Debug\net8.0\ZadatakJ.825A8A33.Up2Date
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Application\obj\Debug\net8.0\ZadatakJuric.Application.dll
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Application\obj\Debug\net8.0\refint\ZadatakJuric.Application.dll
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Application\obj\Debug\net8.0\ZadatakJuric.Application.pdb
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Application\obj\Debug\net8.0\ref\ZadatakJuric.Application.dll

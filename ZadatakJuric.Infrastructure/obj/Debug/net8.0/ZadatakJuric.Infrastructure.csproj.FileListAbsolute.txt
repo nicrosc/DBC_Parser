@@ -1,0 +1,17 @@
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Infrastructure\bin\Debug\net8.0\ZadatakJuric.Infrastructure.deps.json
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Infrastructure\bin\Debug\net8.0\ZadatakJuric.Infrastructure.runtimeconfig.json
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Infrastructure\bin\Debug\net8.0\ZadatakJuric.Infrastructure.dll
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Infrastructure\bin\Debug\net8.0\ZadatakJuric.Infrastructure.pdb
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Infrastructure\bin\Debug\net8.0\ZadatakJuric.Domain.dll
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Infrastructure\bin\Debug\net8.0\ZadatakJuric.Domain.pdb
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Infrastructure\obj\Debug\net8.0\ZadatakJuric.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Infrastructure\obj\Debug\net8.0\ZadatakJuric.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Infrastructure\obj\Debug\net8.0\ZadatakJuric.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Infrastructure\obj\Debug\net8.0\ZadatakJuric.Infrastructure.AssemblyInfo.cs
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Infrastructure\obj\Debug\net8.0\ZadatakJuric.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Infrastructure\obj\Debug\net8.0\ZadatakJ.0FF9D129.Up2Date
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Infrastructure\obj\Debug\net8.0\ZadatakJuric.Infrastructure.dll
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Infrastructure\obj\Debug\net8.0\refint\ZadatakJuric.Infrastructure.dll
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Infrastructure\obj\Debug\net8.0\ZadatakJuric.Infrastructure.pdb
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Infrastructure\obj\Debug\net8.0\ZadatakJuric.Infrastructure.genruntimeconfig.cache
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Infrastructure\obj\Debug\net8.0\ref\ZadatakJuric.Infrastructure.dll

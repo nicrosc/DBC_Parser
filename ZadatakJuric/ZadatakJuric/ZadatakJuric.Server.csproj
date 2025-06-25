@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ZadatakJuric.Client\ZadatakJuric.Client.csproj" />
+    <ProjectReference Include="..\..\ZadatakJuric.Domain\ZadatakJuric.Domain.csproj" />
+    <ProjectReference Include="..\..\ZadatakJuric.Application\ZadatakJuric.Application.csproj" />
+    <ProjectReference Include="..\..\ZadatakJuric.Infrastructure\ZadatakJuric.Infrastructure.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.14" />
+    <PackageReference Include="MediatR" Version="12.2.0" />
+  </ItemGroup>
+
+</Project>

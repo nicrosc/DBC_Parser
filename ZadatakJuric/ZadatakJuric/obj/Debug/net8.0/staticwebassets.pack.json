@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Zeraxo\\source\\repos\\ZadatakJuric\\ZadatakJuric\\ZadatakJuric\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ZadatakJuric.Server.bundle.scp.css",
+      "PackagePath": "staticwebassets\\ZadatakJuric.Server.qp6t6hoymg.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\Zeraxo\\source\\repos\\ZadatakJuric\\ZadatakJuric\\ZadatakJuric\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ZadatakJuric.Server.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ZadatakJuric.Server.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ZadatakJuric.Server.props",
+      "PackagePath": "build\\ZadatakJuric.Server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ZadatakJuric.Server.props",
+      "PackagePath": "buildMultiTargeting\\ZadatakJuric.Server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ZadatakJuric.Server.props",
+      "PackagePath": "buildTransitive\\ZadatakJuric.Server.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

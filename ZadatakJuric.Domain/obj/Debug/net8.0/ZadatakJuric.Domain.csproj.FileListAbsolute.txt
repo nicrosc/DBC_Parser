@@ -1,0 +1,11 @@
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Domain\bin\Debug\net8.0\ZadatakJuric.Domain.deps.json
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Domain\bin\Debug\net8.0\ZadatakJuric.Domain.dll
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Domain\bin\Debug\net8.0\ZadatakJuric.Domain.pdb
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Domain\obj\Debug\net8.0\ZadatakJuric.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Domain\obj\Debug\net8.0\ZadatakJuric.Domain.AssemblyInfoInputs.cache
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Domain\obj\Debug\net8.0\ZadatakJuric.Domain.AssemblyInfo.cs
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Domain\obj\Debug\net8.0\ZadatakJuric.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Domain\obj\Debug\net8.0\ZadatakJuric.Domain.dll
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Domain\obj\Debug\net8.0\refint\ZadatakJuric.Domain.dll
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Domain\obj\Debug\net8.0\ZadatakJuric.Domain.pdb
+C:\Users\Zeraxo\source\repos\ZadatakJuric\ZadatakJuric.Domain\obj\Debug\net8.0\ref\ZadatakJuric.Domain.dll

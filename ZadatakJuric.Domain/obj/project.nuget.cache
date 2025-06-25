@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "ZnHdfrWQyVo=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Zeraxo\\source\\repos\\ZadatakJuric\\ZadatakJuric.Domain\\ZadatakJuric.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Zeraxo\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.17\\microsoft.windowsdesktop.app.ref.8.0.17.nupkg.sha512",
+    "C:\\Users\\Zeraxo\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.17\\microsoft.netcore.app.ref.8.0.17.nupkg.sha512",
+    "C:\\Users\\Zeraxo\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.17\\microsoft.aspnetcore.app.ref.8.0.17.nupkg.sha512"
+  ],
+  "logs": []
+}
